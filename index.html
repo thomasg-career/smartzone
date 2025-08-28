@@ -1,119 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Synapse '25 — Home</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .modal {
-      display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh;
-      background: rgba(18, 24, 38, 0.96); justify-content: center; align-items: center;
-    }
-    .modal.active { display: flex; }
-    .modal img {
-      max-width: 90vw; max-height: 90vh; border-radius: 18px; box-shadow: 0 6px 32px 0 rgba(0,0,0,0.4);
-      border: 2px solid #2a3550; background: #101624;
-    }
-    .modal-close {
-      position: absolute; top: 32px; right: 48px; color: #e6e8ee; background: none; border: none; font-size: 2rem; cursor: pointer;
-      z-index: 1001;
-    }
-    @media (max-width:900px){ .modal-close{top:16px; right:20px;} }
-  </style>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="brand">
-      <img src="assets/kju-logo.png" alt="KJU Logo" class="logo" />
-      <img src="assets/smartzone-logo.png" alt="SmartZone IoT Club Logo" class="logo" />
-    </div>
-    <nav class="nav">
-      <a class="nav-link active" href="index.html">Home</a>
-      <a class="nav-link" href="projects.html">Projects</a>
-      <a class="nav-link" href="contact.html">Contact</a>
-    </nav>
-  </aside>
+  <div class="phone-frame" role="application" aria-label="Synapse mobile view">
+    <header class="topbar">
+      <div class="brand">
+        <img src="assets/kju-logo.png" alt="KJU Logo" class="brand-logo" />
+        <img src="assets/smartzone-logo.png" alt="SmartZone IoT Club" class="smartzone-logo" />
+        <span class="brand-title">Synapse '25</span>
+      </div>
 
-  <main class="stage">
-    <div class="slides" data-slides>
+      <nav class="primary-nav" role="navigation" aria-label="Primary">
+        <a class="nav-btn" href="index.html" aria-current="page">Home</a>
+        <a class="nav-btn" href="projects.html">Projects</a>
+        <a class="nav-btn" href="contact.html">Contact</a>
+      </nav>
+    </header>
 
-      <section class="slide">
-        <div class="slide-content">
-          <h2>Synapse '25</h2>
-          <p>
-            Synapse is the annual IoT exhibition organized by the Department of Computer Science at Kristu Jayanti University, powered by the SmartZone IoT Club.
-            <br><br>
-            It is a platform for students to showcase innovative projects that blend sensors, automation, and AI to solve real-world problems. Synapse brings together technology enthusiasts, encourages collaboration, and inspires new ideas for a smarter and more connected future.
-          </p>
-          <p class="tagline" style="margin-top:20px;"><strong>Tagline:</strong> Connecting the Dots, Empowering Tomorrow</p>
+    <main class="main">
+      <section class="hero">
+        <div class="slides" data-slides>
+
+          <article class="slide" role="group" aria-roledescription="slide" aria-label="Synapse overview">
+            <div class="slide-content">
+              <h2>Synapse '25</h2>
+              <p>
+                Synapse is the annual IoT exhibition by the Department of Computer Science — powered by SmartZone IoT Club.
+                Students showcase sensor, automation and edge-AI projects.
+              </p>
+              <p class="tagline">Connecting the Dots, Empowering Tomorrow</p>
+            </div>
+            <div class="slide-visual">
+              <img id="poster-thumb" src="assets/poster.jpg" alt="Event poster — tap to open full poster" />
+              <div class="poster-hint">Tap to enlarge poster</div>
+            </div>
+          </article>
+
+          <article class="slide" role="group" aria-roledescription="slide" aria-label="What is IoT">
+            <div class="slide-content">
+              <h2>What is IoT</h2>
+              <p>IoT (Internet of Things) connects physical devices to the internet — sensors, actuators and cloud/mobile apps working together to collect data and automate tasks.</p>
+              <p class="tagline">See practical student-built IoT systems at Synapse.</p>
+              <p><a class="small-card" href="projects.html#iot">See IoT projects</a></p>
+            </div>
+            <div class="slide-visual">
+              
+            </div>
+          </article>
+
+          <article class="slide slide-center" role="group" aria-roledescription="slide" aria-label="Event details">
+            <div class="slide-content max-600">
+              <h2>Event Details</h2>
+              <ul class="bullets">
+                <li><strong>Date:</strong> 01/09/2025</li>
+                <li><strong>Time:</strong> 9:00 AM — 5:00 PM</li>
+                <li><strong>Venue:</strong> M1 Auditorium, 1st Floor, Main Block</li>
+              </ul>
+            </div>
+          </article>
         </div>
-        <div class="slide-visual">
-          <img src="assets/poster.jpg" alt="Event Poster" id="poster-thumb" style="cursor:pointer; border-radius:16px; box-shadow:0 8px 24px rgba(0,0,0,.18);max-width:320px;">
-          <div style="text-align:center; margin-top:10px; font-size:0.95em; color:#aecdff;">Click to view poster</div>
+
+        <div class="controls" aria-hidden="false">
+          <button class="nav-circle" data-prev aria-label="Previous slide">‹</button>
+          <div class="dots" data-dots role="tablist" aria-label="Slide navigation"></div>
+          <button class="nav-circle" data-next aria-label="Next slide">›</button>
         </div>
       </section>
 
-
-      <section class="slide slide-center">
-        <div class="slide-content max-600">
-          <h2>What is IoT?</h2>
-          <p>
-            The Internet of Things (IoT) is a network of physical devices—sensors, appliances, vehicles, and machines—embedded with software and connectivity to collect, share, and act on data. IoT transforms how we live and work by enabling real-time insights and intelligent automation in homes, campuses, industries, and cities.
-          </p>
+      <section class="quick-links" style="margin-top:12px">
+        <div class="card small">
+          <h3>Quick Links</h3>
+          <div class="row" style="margin-top:8px">
+            <a class="small-card" href="projects.html">View Projects</a>
+            <a class="small-card" href="contact.html">Contact / Coordinators</a>
+          </div>
         </div>
       </section>
+    </main>
 
-
-      <section class="slide slide-center">
-        <div class="slide-content max-600">
-          <h2>Exhibition Details</h2>
-          <ul class="bullets">
-            <li><strong>Date:</strong> 01/09/2025</li>
-            <li><strong>Time:</strong> 9:00 AM to 5:00 PM</li>
-            <li><strong>Venue:</strong> M1 Auditorium, 1st Floor, Main Block</li>
-          </ul>
-        </div>
-      </section>
+  
+    <div class="modal" id="poster-modal" aria-hidden="true" role="dialog" aria-label="Event poster">
+      <button id="modal-close" class="modal-close" aria-label="Close poster">&times;</button>
+      <img src="assets/poster.jpg" alt="Full event poster" />
     </div>
-    <div class="controls">
-      <button class="btn" data-prev>← Prev</button>
-      <div class="dots" data-dots></div>
-      <button class="btn" data-next>Next →</button>
-    </div>
-  </main>
-
-
-  <div class="modal" id="poster-modal">
-    <button class="modal-close" id="modal-close" title="Close">&times;</button>
-    <img src="assets/poster.jpg" alt="Full Event Poster">
   </div>
 
   <script src="script.js"></script>
-  <script>
-
-    document.getElementById('poster-thumb').onclick = function() {
-      document.getElementById('poster-modal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    };
-    document.getElementById('modal-close').onclick = function() {
-      document.getElementById('poster-modal').classList.remove('active');
-      document.body.style.overflow = '';
-    };
-
-    document.getElementById('poster-modal').onclick = function(e) {
-      if (e.target === this) {
-        this.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    };
-
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape'){
-        document.getElementById('poster-modal').classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    });
-  </script>
 </body>
 </html>
