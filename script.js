@@ -1,134 +1,172 @@
 
-(() => {
+(function () {
+
   const slidesContainer = document.querySelector('.slides');
-  if (!slidesContainer) return;
+  if (slidesContainer) {
+    let slides = Array.from(slidesContainer.querySelectorAll('.slide'));
+   
+    slides = slides.filter(s => s && s.textContent.trim().length > 0);
+    if (slides.length > 0) {
 
-
-  let rawSlides = Array.from(slidesContainer.querySelectorAll('.slide'));
-
-
-  rawSlides.forEach(s => {
-    const content = s.querySelector('.slide-content');
-    const visual = s.querySelector('.slide-visual');
-    const hasText = content && content.textContent && content.textContent.trim().length > 3;
-    const hasVisual = visual && visual.innerHTML && visual.innerHTML.trim().length > 3;
-    if (!hasText && !hasVisual) {
-      s.remove();
-    }
-  });
-
-  let slides = Array.from(slidesContainer.querySelectorAll('.slide'));
-
-
-  slides.forEach(s => {
-    const content = s.querySelector('.slide-content');
-    const visual = s.querySelector('.slide-visual');
-    const hasText = content && content.textContent && content.textContent.trim().length > 3;
-    const hasVisualImage = visual && visual.querySelector('img');
-    if (!hasText && hasVisualImage) {
-      s.classList.add('visual-only');
-    }
-  });
-
-
-  const controls = document.querySelector('.controls');
-  const dotsContainer = controls ? controls.querySelector('[data-dots]') : null;
-
-
-  if (dotsContainer) dotsContainer.innerHTML = '';
-
-  let current = 0;
-  const total = slides.length;
-
-  function buildDots() {
-    if (!dotsContainer) return;
-    slides.forEach((_, i) => {
-      const dot = document.createElement('div');
-      dot.className = 'dot';
-      dot.dataset.index = i;
-      dot.addEventListener('click', () => goTo(parseInt(dot.dataset.index, 10)));
-      dotsContainer.appendChild(dot);
-    });
-  }
-
-  function update() {
-    slides.forEach((s, i) => {
-      if (i === current) {
-        s.classList.add('active');
-      } else {
-        s.classList.remove('active');
+      const dotsContainer = document.querySelector('[data-dots]');
+      if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        slides.forEach((_, i) => {
+          const d = document.createElement('button');
+          d.className = 'dot';
+          d.type = 'button';
+          d.setAttribute('aria-label', `Go to slide ${i + 1}`);
+          d.addEventListener('click', () => goTo(i));
+          dotsContainer.appendChild(d);
+        });
       }
-    });
 
-    if (dotsContainer) {
-      const dots = Array.from(dotsContainer.children);
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      let current = 0;
+      function updateUI() {
+        slides.forEach((s, i) => {
+          s.style.display = i === current ? 'flex' : 'none';
+          s.setAttribute('aria-hidden', String(i !== current));
+        });
+        const dots = dotsContainer ? Array.from(dotsContainer.children) : [];
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+      function prev() { current = (current - 1 + slides.length) % slides.length; updateUI(); }
+      function next() { current = (current + 1) % slides.length; updateUI(); }
+      function goTo(i) { if (i < 0 || i >= slides.length) return; current = i; updateUI(); }
+
+      document.querySelector('[data-prev]')?.addEventListener('click', prev);
+      document.querySelector('[data-next]')?.addEventListener('click', next);
+
+
+      let startX = 0, startY = 0, isTouch = false;
+      slidesContainer.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length === 0) return;
+        startX = e.touches[0].clientX; startY = e.touches[0].clientY; isTouch = true;
+      }, { passive: true });
+      slidesContainer.addEventListener('touchmove', (e) => {
+      
+        if (!isTouch || !e.touches || e.touches.length === 0) return;
+        const dx = Math.abs(e.touches[0].clientX - startX);
+        const dy = Math.abs(e.touches[0].clientY - startY);
+        if (dx > dy) e.preventDefault();
+      }, { passive: false });
+      slidesContainer.addEventListener('touchend', (e) => {
+        if (!isTouch) return; isTouch = false;
+        const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
+        const dx = endX - startX;
+        if (Math.abs(dx) > 40) { if (dx > 0) prev(); else next(); }
+      });
+
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') prev();
+        if (e.key === 'ArrowRight') next();
+      });
+
+
+      updateUI();
     }
   }
-
-  function prev() {
-    current = (current - 1 + slides.length) % slides.length;
-    update();
-  }
-  function next() {
-    current = (current + 1) % slides.length;
-    update();
-  }
-  function goTo(i) {
-    if (i < 0 || i >= slides.length) return;
-    current = i;
-    update();
-  }
-
-
-  const btnPrev = document.querySelector('[data-prev]');
-  const btnNext = document.querySelector('[data-next]');
-  btnPrev && btnPrev.addEventListener('click', prev);
-  btnNext && btnNext.addEventListener('click', next);
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') prev();
-    if (e.key === 'ArrowRight') next();
-  });
-
-  buildDots();
-
-  if (slides.length === 0) {
-    controls && (controls.style.display = 'none');
-    return;
-  }
-  update();
 
 
   const posterThumb = document.getElementById('poster-thumb');
   const posterModal = document.getElementById('poster-modal');
-  const modalClose = document.getElementById('modal-close');
+  const modalCloseBtn = document.getElementById('modal-close');
 
-  if (posterThumb && posterModal) {
-    posterThumb.addEventListener('click', () => {
-      posterModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
+  function openModal() {
+    if (!posterModal) return;
+    posterModal.classList.add('active');
+    posterModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
   }
-  if (modalClose && posterModal) {
-    modalClose.addEventListener('click', () => {
-      posterModal.classList.remove('active');
-      document.body.style.overflow = '';
-    });
+  function closeModal() {
+    if (!posterModal) return;
+    posterModal.classList.remove('active');
+    posterModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
   }
-  if (posterModal) {
-    posterModal.addEventListener('click', (e) => {
-      if (e.target === posterModal) {
-        posterModal.classList.remove('active');
-        document.body.style.overflow = '';
-      }
+  posterThumb?.addEventListener('click', openModal);
+  modalCloseBtn?.addEventListener('click', closeModal);
+  posterModal?.addEventListener('click', (e) => { if (e.target === posterModal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+
+  document.querySelectorAll('a[href="projects.html#iot"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+   
+      setTimeout(() => { location.hash = 'iot'; }, 200);
     });
-  }
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && posterModal && posterModal.classList.contains('active')) {
-      posterModal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
   });
 
-})();
+
+  (function projectsInit() {
+    const search = document.getElementById('project-search');
+    const grid = document.getElementById('projects-grid');
+    const tagFilters = document.getElementById('tag-filters');
+    const cards = grid ? Array.from(grid.querySelectorAll('.project-card')) : [];
+
+    function normalize(s) { return (s || '').toLowerCase().trim(); }
+
+    function filterProjects() {
+      const q = normalize(search?.value);
+      const activeTagBtn = (tagFilters && tagFilters.querySelector('.tag-btn.active')) || document.querySelector('#tag-filters .tag-btn.active');
+      const tag = activeTagBtn ? activeTagBtn.dataset.tag : 'all';
+      cards.forEach(card => {
+        const title = normalize(card.querySelector('.project-title')?.textContent);
+        const desc = normalize(card.querySelector('.project-desc')?.textContent);
+        const tags = normalize(card.dataset.tags || '');
+        const matchesText = q === '' || title.includes(q) || desc.includes(q) || tags.includes(q);
+        const matchesTag = tag === 'all' || tags.split(' ').includes(tag);
+        card.style.display = (matchesText && matchesTag) ? 'flex' : 'none';
+      });
+    }
+
+    if (search) search.addEventListener('input', filterProjects);
+
+
+    const tagContainer = document.getElementById('tag-filters') || document.querySelector('#tag-filters');
+    if (tagContainer) {
+      tagContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('.tag-btn');
+        if (!btn) return;
+        tagContainer.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterProjects();
+
+        const tag = btn.dataset.tag || 'all';
+        if (tag && tag !== 'all') history.replaceState(null, '', '#' + tag);
+        else history.replaceState(null, '', location.pathname);
+      });
+    }
+
+
+    grid?.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-share]');
+      if (!btn) return;
+      const text = btn.dataset.share;
+      if (navigator.share) {
+        navigator.share({ title: 'Synapse Project', text }).catch(()=>{});
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(()=> alert('Project info copied to clipboard.'));
+      } else {
+        prompt('Copy project info', text);
+      }
+    });
+
+
+    if (location.hash) {
+      const hash = location.hash.replace('#', '').toLowerCase();
+      setTimeout(() => {
+        const btn = document.querySelector(`.tag-btn[data-tag="${hash}"]`);
+        if (btn) {
+          (document.getElementById('tag-filters') || document.querySelector('#tag-filters')).querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+        filterProjects();
+      }, 50);
+    }
+
+    filterProjects();
+  })();
+
+})();            
