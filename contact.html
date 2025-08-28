@@ -1,78 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Synapse '25 — Contact</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-
-    .contact-panel{
-      display:flex;gap:28px;align-items:flex-start;justify-content:space-between;padding:28px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.03));border-radius:14px;
-    }
-    .contact-left{width:54%}
-    .contact-right{width:42%}
-    .contact-card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 8px 28px rgba(2,6,23,0.45)}
-    .muted-small{color:#9fb5d8;font-size:13px;margin-top:8px}
-    .socials{display:flex;gap:12px;margin-top:12px}
-    .socials .btn{
-      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:none;color:var(--muted);cursor:pointer;font-weight:700;
-    }
-    .socials .btn svg{display:block;width:18px;height:18px;flex:0 0 18px}
-    .map-embed{
-      width:100%;height:220px;border-radius:12px;background:linear-gradient(180deg,#06070a,#0a0c0f);
-      display:flex;align-items:center;justify-content:center;color:#7b8799;border:1px solid rgba(255,255,255,0.02)
-    }
-    .map-embed iframe{width:100%;height:100%;border:0;border-radius:12px}
-    .map-link{display:block;margin-top:8px;color:var(--accent);font-weight:600}
-    .coordinators{margin-top:14px}
-    .coordinators li{margin:8px 0;color:#d8eaff}
-    .coordinators a{color:var(--accent);font-weight:600}
-  </style>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="brand">
-      <img src="assets/kju-logo.png" alt="KJU Logo" class="logo" />
-      <img src="assets/smartzone-logo.png" alt="SmartZone IoT Club Logo" class="logo" />
-    </div>
-    <nav class="nav">
-      <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link" href="projects.html">Projects</a>
-      <a class="nav-link active" href="contact.html">Contact</a>
-    </nav>
-  </aside>
+  <div class="phone-frame" role="application" aria-label="Contact mobile view">
+    <header class="topbar">
+      <div class="brand">
+        <img src="assets/kju-logo.png" alt="KJU Logo" class="brand-logo" />
+        <img src="assets/smartzone-logo.png" alt="SmartZone IoT Club" class="smartzone-logo" />
+        <span class="brand-title">Synapse '25</span>
+      </div>
 
-  <main class="stage">
-    <div style="padding:10px 0 18px 0;color:#cfe4ff">
-      <h2 style="margin:0 0 6px">Contact</h2>
-      <div class="muted-small">For queries about Synapse '25, exhibiting, volunteering or partnerships, call any of our coordinators below.</div>
-    </div>
+      <nav class="primary-nav" role="navigation" aria-label="Primary">
+        <a class="nav-btn" href="index.html">Home</a>
+        <a class="nav-btn" href="projects.html">Projects</a>
+        <a class="nav-btn active" href="contact.html" aria-current="page">Contact</a>
+      </nav>
+    </header>
 
-    <div class="contact-panel contact-card">
-      <div class="contact-left">
-        <div class="contact-card" style="padding:18px">
-          <h3 style="margin:0 0 8px">Meet Our Coordinators</h3>
-          <ul class="coordinators" aria-label="Coordinators list">
+    <main class="main contact-main">
+      <header class="page-header">
+        <h1>Contact</h1>
+        <p class="muted-small">For queries about Synapse '25 — call any of our coordinators below.</p>
+      </header>
+
+      <section class="contact-panel">
+        <div class="contact-card">
+          <h3>Meet Our Coordinators</h3>
+          <ul class="coordinators">
             <li>Dr. Stephen A — Coordinator: <a href="tel:+919677910604">+91 96779 10604</a></li>
             <li>Kiran Shankar A P — Coordinator: <a href="tel:+918547728600">+91 85477 28600</a></li>
             <li>Ruth J — Coordinator: <a href="tel:+919148518663">+91 91485 18663</a></li>
           </ul>
         </div>
 
-        <div style="margin-top:18px;color:#cfe4ff">
-          <h3 style="margin:8px 0">Venue</h3>
-          <p class="muted-small" style="margin:0 0 12px">M1 Auditorium, 1st Floor, Main Block — Kristu Jayanti University</p>
-        </div>
-      </div>
+        <div class="contact-card">
+          <h4>Venue</h4>
+          <p class="muted-small">M1 Auditorium, 1st Floor, Main Block — Kristu Jayanti University</p>
 
-      <div class="contact-right">
-        <div class="contact-card" style="padding:18px">
-          <h3 style="margin:0 0 8px">Location</h3>
-
+          <h4 style="margin-top:12px">Location</h4>
           <div class="map-embed" aria-hidden="false" aria-label="Kristu Jayanti University location map">
             <iframe
               src="https://www.google.com/maps?q=13.0579425,77.6429632&z=17&output=embed"
@@ -82,26 +52,12 @@
             ></iframe>
           </div>
 
+          <a class="map-link" href="https://www.google.com/maps/place/Kristu+Jayanti+(Deemed+to+be+University)/@13.0579353,77.6428117,21z/data=!4m6!3m5!1s0x3bae17578c79da7d:0xe96dcd8e2b982f8e!8m2!3d13.0579425!4d77.6429632!16s%2Fg%2F11byd42ts_?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
 
-          <a
-            class="map-link"
-            href="https://www.google.com/maps/place/Kristu+Jayanti+(Deemed+to+be+University)/@13.0579353,77.6428117,21z/data=!4m6!3m5!1s0x3bae17578c79da7d:0xe96dcd8e2b982f8e!8m2!3d13.0579425!4d77.6429632!16s%2Fg%2F11byd42ts_?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D"
-            target="_blank" rel="noopener noreferrer"
-          >
-            Open in Google Maps
-          </a>
-
-          <div style="margin-top:14px">
-            <h4 style="margin:6px 0">Follow us</h4>
+          <div style="margin-top:12px">
+            <h4>Follow us</h4>
             <div class="socials">
-              <a
-                class="btn"
-                href="https://www.instagram.com/smartzone.iot?igsh=MXdwaHA3dWlteHB0Zw=="
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="SmartZone IoT Instagram"
-              >
-
+              <a class="btn instagram" href="https://www.instagram.com/smartzone.iot?igsh=MXdwaHA3dWlteHB0Zw==" target="_blank" rel="noopener noreferrer" aria-label="SmartZone Instagram">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.2" fill="none"/>
                   <path d="M12 7.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9z" stroke="currentColor" stroke-width="1.2" fill="none"/>
@@ -112,15 +68,17 @@
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="contact-card" style="margin-top:12px;padding:14px">
-          <h4 style="margin:6px 0">Organizers</h4>
-          <p class="muted-small" style="margin:6px 0">Department of Computer Science — Kristu Jayanti University</p>
-          <p class="muted-small" style="margin:6px 0">SmartZone IoT Club</p>
+      <section style="margin-top:12px">
+        <div class="contact-card small">
+          <h4>Organizers</h4>
+          <p class="muted-small">Department of Computer Science — Kristu Jayanti University</p>
+          <p class="muted-small">SmartZone IoT Club</p>
         </div>
-      </div>
-    </div>
-  </main>
+      </section>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
