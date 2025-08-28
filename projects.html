@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Synapse '25 — Projects</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="assets/kju-logo.png" alt="KJU Logo" class="logo" />
+      <img src="assets/smartzone-logo.png" alt="SmartZone IoT Club Logo" class="logo" />
+    </div>
+    <nav class="nav">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link active" href="projects.html">Projects</a>
+      <a class="nav-link" href="contact.html">Contact</a>
+    </nav>
+  </aside>
+
+  <main class="stage">
+    <div class="slides" data-slides>
+
+      <section class="slide slide-center">
+        <div class="slide-content max-600">
+          <h2>Projects on Display</h2>
+          <p>
+            Explore practical IoT solutions: sensor networks, automation, and AI-enhanced analytics.
+            Each card highlights objectives, components, and potential impact.
+          </p>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="cards">
+          <article class="card">
+            <div class="card-body">
+              <h4>Smart Energy Monitor</h4>
+              <p>Real-time consumption tracking with threshold alerts and cloud dashboards.</p>
+              <div class="tags"><span>ESP32</span><span>MQTT</span><span>Grafana</span></div>
+              <p><strong>Team:</strong> Priya, John, Akash</p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-body">
+              <h4>Precision Agriculture</h4>
+              <p>Soil moisture + weather sensing with automated irrigation control.</p>
+              <div class="tags"><span>LoRa</span><span>Edge AI</span><span>Node-RED</span></div>
+              <p><strong>Team:</strong> Shreya, Manish, Deepak</p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-body">
+              <h4>Health Vitals Tracker</h4>
+              <p>Non-invasive vitals logging and anomaly notifications to caregivers.</p>
+              <div class="tags"><span>BLE</span><span>Time Series</span><span>Alerts</span></div>
+              <p><strong>Team:</strong> Sneha, Rahul, Vivek</p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-body">
+              <h4>Air Quality Monitor</h4>
+              <p>PM2.5, CO₂, and VOC measurements with adaptive ventilation triggers.</p>
+              <div class="tags"><span>MQTT</span><span>ESP-NOW</span><span>Cloud</span></div>
+              <p><strong>Team:</strong> Anjali, Raj, Tina</p>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="slide slide-center">
+        <div class="slide-content max-600">
+          <h2>How We Built These Projects</h2>
+          <ul class="bullets">
+            <li>Brainstormed real-world problems and solutions</li>
+            <li>Designed circuits and selected sensors</li>
+            <li>Programmed microcontrollers (ESP32, Arduino)</li>
+            <li>Integrated cloud dashboards for real-time data</li>
+            <li>Tested prototypes in campus environments</li>
+          </ul>
+        </div>
+      </section>
+
+
+      <section class="slide slide-center">
+        <div class="slide-content max-600">
+          <h2>Impact & Next Steps</h2>
+          <p>
+            These prototypes showcase how IoT and AI can solve real problems in energy, agriculture, health, and environment. Our next goal: pilot deployment and collaboration with local industry!
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <div class="controls">
+      <button class="btn" data-prev>← Prev</button>
+      <div class="dots" data-dots></div>
+      <button class="btn" data-next>Next →</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
