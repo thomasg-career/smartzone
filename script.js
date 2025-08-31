@@ -70,5 +70,80 @@ showSlide(currentSlide);
   modalCloseBtn?.addEventListener('click', closeModal);
   posterModal?.addEventListener('click', (e) => { if (e.target === posterModal) closeModal(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+    <script>
+(function () {
+  const slidesContainer = document.querySelector('.slides');
+  if (!slidesContainer) return;
+
+  const slides = Array.from(slidesContainer.querySelectorAll('.slide'));
+
+  // Create dots navigation
+  const dotsContainer = document.createElement('div');
+  dotsContainer.className = 'dots';
+  slidesContainer.appendChild(dotsContainer);
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot';
+    dot.type = 'button';
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  // Create Prev/Next buttons
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'prev';
+  prevBtn.innerHTML = '&#10094;';
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'next';
+  nextBtn.innerHTML = '&#10095;';
+  slidesContainer.appendChild(prevBtn);
+  slidesContainer.appendChild(nextBtn);
+
+  let current = 0;
+  let interval;
+
+  function updateUI() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    Array.from(dotsContainer.children).forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function goToSlide(i) {
+    current = i;
+    updateUI();
+    resetAutoSlide();
+  }
+
+  function prevSlide() {
+    current = (current - 1 + slides.length) % slides.length;
+    updateUI();
+    resetAutoSlide();
+  }
+
+  function nextSlide() {
+    current = (current + 1) % slides.length;
+    updateUI();
+  }
+
+  function startAutoSlide() {
+    interval = setInterval(nextSlide, 5000);
+  }
+
+  function resetAutoSlide() {
+    clearInterval(interval);
+    startAutoSlide();
+  }
+
+  prevBtn.addEventListener('click', prevSlide);
+  nextBtn.addEventListener('click', nextSlide);
+
+  // Initialize
+  updateUI();
+  startAutoSlide();
+
 })();
+</script>
+
+})();
+
 
