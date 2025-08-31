@@ -7,17 +7,17 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="phone-frame" role="application" aria-label="Projects mobile view">
+  <div class="phone-frame">
     <header class="topbar">
       <div class="brand">
         <img src="assets/kju-logo.png" alt="KJU Logo" class="brand-logo" />
         <img src="assets/smartzone-logo.png" alt="SmartZone IoT Club" class="smartzone-logo" />
-     
+        <span class="brand-title">Synapse '25</span>
       </div>
 
-      <nav class="primary-nav" role="navigation" aria-label="Primary">
+      <nav class="primary-nav">
         <a class="nav-btn" href="index.html">Home</a>
-        <a class="nav-btn active" href="projects.html" aria-current="page">Projects</a>
+        <a class="nav-btn active" href="projects.html">Projects</a>
         <a class="nav-btn" href="contact.html">Contact</a>
       </nav>
     </header>
@@ -28,46 +28,48 @@
         <p class="muted-small">Featured student projects — tap a card for details.</p>
       </header>
 
-      <div class="projects-controls" style="margin-top:8px">
-        <input id="project-search" class="search-input" type="search" placeholder="Search projects or tags…" aria-label="Search projects" />
-        <div id="tag-filters" style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-          
+      <div class="projects-controls">
+        <input id="project-search" class="search-input" type="search" placeholder="Search projects or tags…" />
+        <div id="tag-filters">
+          <button class="tag-btn active" data-tag="all">All</button>
+          <button class="tag-btn" data-tag="iot">IoT</button>
+          <button class="tag-btn" data-tag="robotics">Robotics</button>
+          <button class="tag-btn" data-tag="agri">Agritech</button>
+          <button class="tag-btn" data-tag="health">Healthcare</button>
+        </div>
       </div>
 
-      <section class="projects-grid" id="projects-grid" aria-live="polite" style="margin-top:10px">
-
+      <section class="projects-grid" id="projects-grid">
         <article class="project-card" data-tags="iot agri">
           <div class="project-body">
             <h3 class="project-title">Smart Irrigation System</h3>
-            <p class="project-desc">Soil‑moisture sensing and automated drip control to conserve water and optimize yield.</p>
+            <p class="project-desc">Soil-moisture sensing and automated drip control to conserve water and optimize yield.</p>
             <div class="project-tags"><span class="project-tag">IoT</span><span class="project-tag">Agritech</span></div>
-            <div class="project-actions" style="margin-top:8px">
+            <div class="project-actions">
               <a class="small-btn" href="#">View</a>
               <button class="small-btn" data-share="Smart Irrigation System — Synapse '25">Share</button>
             </div>
           </div>
         </article>
 
-
         <article class="project-card" data-tags="robotics iot">
           <div class="project-body">
             <h3 class="project-title">Autonomous Delivery Bot</h3>
-            <p class="project-desc">A compact robot using sensors and path‑planning to deliver items across campus.</p>
+            <p class="project-desc">A compact robot using sensors and path-planning to deliver items across campus.</p>
             <div class="project-tags"><span class="project-tag">Robotics</span><span class="project-tag">IoT</span></div>
-            <div class="project-actions" style="margin-top:8px">
+            <div class="project-actions">
               <a class="small-btn" href="#">View</a>
               <button class="small-btn" data-share="Autonomous Delivery Bot — Synapse '25">Share</button>
             </div>
           </div>
         </article>
 
-
         <article class="project-card" data-tags="health iot">
           <div class="project-body">
             <h3 class="project-title">Healthcare Wearable</h3>
-            <p class="project-desc">Wearable for vitals monitoring and real‑time alerts to caregivers via mobile push.</p>
+            <p class="project-desc">Wearable for vitals monitoring and real-time alerts to caregivers via mobile push.</p>
             <div class="project-tags"><span class="project-tag">Healthcare</span><span class="project-tag">IoT</span></div>
-            <div class="project-actions" style="margin-top:8px">
+            <div class="project-actions">
               <a class="small-btn" href="#">View</a>
               <button class="small-btn" data-share="Healthcare Wearable — Synapse '25">Share</button>
             </div>
@@ -80,4 +82,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
