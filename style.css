@@ -8,6 +8,25 @@
   --radius:14px;
   --pad:16px;
 }
+.instagram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #5678ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.instagram-link:hover {
+  text-decoration: underline;
+}
+
+.instagram-icon {
+  width: 24px;
+  height: 24px;
+  fill: #5678ff;
+}
+
 
 .fade-in {
   opacity: 0;
@@ -187,3 +206,4 @@ img{max-width:100%;height:auto;display:block}
 @media(max-width:420px){
   .phone-frame{width:100%;border-radius:0;margin:0;box-shadow:none}
 }
+
