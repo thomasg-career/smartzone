@@ -72,7 +72,11 @@
     if (!posterModal) return;
     posterModal.classList.remove('active');
     posterModal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    if (!document.body.classList.contains('homepage')) {
+      document.body.style.overflow = 'auto';
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
   }
   posterThumb?.addEventListener('click', openModal);
   modalCloseBtn?.addEventListener('click', closeModal);
