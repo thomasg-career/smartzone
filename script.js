@@ -27,7 +27,29 @@
       document.querySelector('[data-next]')?.addEventListener('click', next);
       updateUI();
       autoSlide();
-    }
+    const slides = document.querySelectorAll('[data-slides] .slide');
+let currentSlide = 0;
+
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.remove('active');
+    if (i === index) slide.classList.add('active');
+  });
+}
+
+document.querySelector('[data-next]').addEventListener('click', () => {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+});
+
+document.querySelector('[data-prev]').addEventListener('click', () => {
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+  showSlide(currentSlide);
+});
+
+showSlide(currentSlide);
+
+    
   }
   const posterThumb = document.getElementById('poster-thumb');
   const posterModal = document.getElementById('poster-modal');
@@ -49,3 +71,4 @@
   posterModal?.addEventListener('click', (e) => { if (e.target === posterModal) closeModal(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 })();
+
