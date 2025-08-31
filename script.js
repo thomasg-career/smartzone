@@ -1,13 +1,9 @@
-
 (function () {
-
   const slidesContainer = document.querySelector('.slides');
   if (slidesContainer) {
     let slides = Array.from(slidesContainer.querySelectorAll('.slide'));
-   
     slides = slides.filter(s => s && s.textContent.trim().length > 0);
     if (slides.length > 0) {
-
       const dotsContainer = document.querySelector('[data-dots]');
       if (dotsContainer) {
         dotsContainer.innerHTML = '';
@@ -24,8 +20,7 @@
       let current = 0;
       function updateUI() {
         slides.forEach((s, i) => {
-          s.style.display = i === current ? 'flex' : 'none';
-          s.setAttribute('aria-hidden', String(i !== current));
+          s.classList.toggle('active', i === current);
         });
         const dots = dotsContainer ? Array.from(dotsContainer.children) : [];
         dots.forEach((d, i) => d.classList.toggle('active', i === current));
@@ -37,18 +32,16 @@
       document.querySelector('[data-prev]')?.addEventListener('click', prev);
       document.querySelector('[data-next]')?.addEventListener('click', next);
 
-
       let startX = 0, startY = 0, isTouch = false;
       slidesContainer.addEventListener('touchstart', (e) => {
         if (!e.touches || e.touches.length === 0) return;
         startX = e.touches[0].clientX; startY = e.touches[0].clientY; isTouch = true;
       }, { passive: true });
       slidesContainer.addEventListener('touchmove', (e) => {
-      
-        if (!isTouch || !e.touches || e.touches.length === 0) return;
-        const dx = Math.abs(e.touches[0].clientX - startX);
-        const dy = Math.abs(e.touches[0].clientY - startY);
-        if (dx > dy) e.preventDefault();
+        if (!isTouch || !e.touches.length) return;
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
       }, { passive: false });
       slidesContainer.addEventListener('touchend', (e) => {
         if (!isTouch) return; isTouch = false;
@@ -57,18 +50,16 @@
         if (Math.abs(dx) > 40) { if (dx > 0) prev(); else next(); }
       });
 
-
       document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') prev();
         if (e.key === 'ArrowRight') next();
       });
 
-
       updateUI();
     }
   }
 
-
+  // === Modal ===
   const posterThumb = document.getElementById('poster-thumb');
   const posterModal = document.getElementById('poster-modal');
   const modalCloseBtn = document.getElementById('modal-close');
@@ -90,15 +81,7 @@
   posterModal?.addEventListener('click', (e) => { if (e.target === posterModal) closeModal(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-
-  document.querySelectorAll('a[href="projects.html#iot"]').forEach(a => {
-    a.addEventListener('click', (e) => {
-   
-      setTimeout(() => { location.hash = 'iot'; }, 200);
-    });
-  });
-
-
+  // === Projects filters ===
   (function projectsInit() {
     const search = document.getElementById('project-search');
     const grid = document.getElementById('projects-grid');
@@ -109,7 +92,7 @@
 
     function filterProjects() {
       const q = normalize(search?.value);
-      const activeTagBtn = (tagFilters && tagFilters.querySelector('.tag-btn.active')) || document.querySelector('#tag-filters .tag-btn.active');
+      const activeTagBtn = (tagFilters && tagFilters.querySelector('.tag-btn.active'));
       const tag = activeTagBtn ? activeTagBtn.dataset.tag : 'all';
       cards.forEach(card => {
         const title = normalize(card.querySelector('.project-title')?.textContent);
@@ -122,51 +105,32 @@
     }
 
     if (search) search.addEventListener('input', filterProjects);
-
-
-    const tagContainer = document.getElementById('tag-filters') || document.querySelector('#tag-filters');
-    if (tagContainer) {
-      tagContainer.addEventListener('click', (e) => {
+    if (tagFilters) {
+      tagFilters.addEventListener('click', (e) => {
         const btn = e.target.closest('.tag-btn');
         if (!btn) return;
-        tagContainer.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+        tagFilters.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.remove('active');
+        void btn.offsetWidth; // reflow
         btn.classList.add('active');
         filterProjects();
-
         const tag = btn.dataset.tag || 'all';
         if (tag && tag !== 'all') history.replaceState(null, '', '#' + tag);
         else history.replaceState(null, '', location.pathname);
       });
     }
-
-
-    grid?.addEventListener('click', (e) => {
-      const btn = e.target.closest('button[data-share]');
-      if (!btn) return;
-      const text = btn.dataset.share;
-      if (navigator.share) {
-        navigator.share({ title: 'Synapse Project', text }).catch(()=>{});
-      } else if (navigator.clipboard) {
-        navigator.clipboard.writeText(text).then(()=> alert('Project info copied to clipboard.'));
-      } else {
-        prompt('Copy project info', text);
-      }
-    });
-
-
-    if (location.hash) {
-      const hash = location.hash.replace('#', '').toLowerCase();
-      setTimeout(() => {
-        const btn = document.querySelector(`.tag-btn[data-tag="${hash}"]`);
-        if (btn) {
-          (document.getElementById('tag-filters') || document.querySelector('#tag-filters')).querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-        }
-        filterProjects();
-      }, 50);
-    }
-
     filterProjects();
   })();
 
-})();            
+  // === Animate cards on scroll ===
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.contact-card, .project-card').forEach(card => observer.observe(card));
+
+})();
