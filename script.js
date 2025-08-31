@@ -1,4 +1,4 @@
-(function () {
+(function () { 
   const slidesContainer = document.querySelector('.slides');
   if (slidesContainer) {
     let slides = Array.from(slidesContainer.querySelectorAll('.slide'));
@@ -31,23 +31,7 @@
       document.querySelector('[data-prev]')?.addEventListener('click', prev);
       document.querySelector('[data-next]')?.addEventListener('click', next);
 
-      let startX = 0, startY = 0, isTouch = false;
-      slidesContainer.addEventListener('touchstart', (e) => {
-        if (!e.touches || e.touches.length === 0) return;
-        startX = e.touches[0].clientX; startY = e.touches[0].clientY; isTouch = true;
-      }, { passive: true });
-      slidesContainer.addEventListener('touchend', (e) => {
-        if (!isTouch) return;
-        isTouch = false;
-        if (!e.changedTouches || !e.changedTouches.length) return;
-        const endX = e.changedTouches[0].clientX;
-        const endY = e.changedTouches[0].clientY;
-        const dx = endX - startX;
-        const dy = endY - startY;
-        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-          if (dx > 0) prev(); else next();
-        }
-      });
+     
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') prev();
@@ -130,3 +114,4 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.contact-card, .project-card').forEach(card => observer.observe(card));
 })();
+
