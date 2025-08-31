@@ -13,16 +13,20 @@
         dotsContainer.appendChild(d);
       });
       let current = 0;
+      let interval;
       function updateUI() {
         slides.forEach((s, i) => s.classList.toggle("active", i === current));
         Array.from(dotsContainer.children).forEach((d, i) => d.classList.toggle("active", i === current));
       }
-      function prev() { current = (current - 1 + slides.length) % slides.length; updateUI(); }
-      function next() { current = (current + 1) % slides.length; updateUI(); }
-      function goTo(i) { current = i; updateUI(); }
+      function prev() { current = (current - 1 + slides.length) % slides.length; updateUI(); resetAuto(); }
+      function next() { current = (current + 1) % slides.length; updateUI(); resetAuto(); }
+      function goTo(i) { current = i; updateUI(); resetAuto(); }
+      function autoSlide() { interval = setInterval(() => { current = (current + 1) % slides.length; updateUI(); }, 5000); }
+      function resetAuto() { clearInterval(interval); autoSlide(); }
       document.querySelector('[data-prev]')?.addEventListener('click', prev);
       document.querySelector('[data-next]')?.addEventListener('click', next);
       updateUI();
+      autoSlide();
     }
   }
   const posterThumb = document.getElementById('poster-thumb');
