@@ -1,74 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - SmartZone IoT</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Synapse '25 — Contact</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    :root{
-      --bg:#0f1418;
-      --panel:#0b0f12;
-      --muted:#9fb5d8;
-      --accent:#5678ff;
-      --card:#0f1720;
-      --glass:rgba(255,255,255,0.03);
-      --radius:14px;
-      --pad:16px;
-    }
-
-    *{box-sizing:border-box}
-    html,body{
-      height:100%;
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      color:#e6eefc;
-      background:var(--bg);
-      -webkit-font-smoothing:antialiased;
-    }
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;height:auto;display:block}
-
-    /* --- Contact Styles --- */
+    /* Professional Contact Section Styles */
     .contact-panel {
       display: flex;
-      justify-content: center;
-      padding: 20px;
-      height: 100%;
-      overflow-y: auto;
+      flex-direction: column;
+      gap: 18px;
+      padding: 16px;
     }
 
     .contact-card {
       background: var(--card);
-      padding: calc(var(--pad) + 4px);
+      padding: 16px;
       border-radius: var(--radius);
-      box-shadow: 0 12px 32px rgba(2,6,23,0.55);
-      max-width: 500px;
-      width: 100%;
-      animation: fadeInUp .6s ease;
+      box-shadow: 0 10px 28px rgba(2,6,23,0.45);
+      transition: transform .3s ease, box-shadow .3s ease;
     }
 
     .contact-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(2,6,23,0.65);
+      box-shadow: 0 14px 36px rgba(2,6,23,0.55);
     }
 
-    .contact-card h2 {
-      margin: 0 0 10px;
+    .contact-card h3,
+    .contact-card h4 {
+      margin: 0 0 8px;
       color: #eaf2ff;
-      font-weight: 600;
-      text-align: center;
     }
 
     .muted-small {
       color: var(--muted);
       font-size: 13px;
-      text-align: center;
-      margin-bottom: 16px;
     }
 
     .coordinators {
-      margin-top: 10px;
+      margin: 8px 0 0;
       padding-left: 14px;
       list-style: none;
     }
@@ -94,37 +65,37 @@
     .socials {
       display: flex;
       justify-content: center;
-      gap: 14px;
-      margin-top: 16px;
+      gap: 12px;
+      margin-top: 12px;
     }
 
     .socials .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 16px;
-      border-radius: 12px;
+      padding: 8px 14px;
+      border-radius: 10px;
       background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
       color: #fff;
       font-weight: 600;
-      font-size: 15px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      font-size: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
       transition: transform .25s ease, box-shadow .25s ease;
     }
 
     .socials .btn:hover {
       transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 8px 22px rgba(0,0,0,0.55);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
     }
 
     .map-embed {
       width: 100%;
-      height: 240px;
-      border-radius: 16px;
+      height: 220px;
+      border-radius: 12px;
       background: #06070a;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.05);
       overflow: hidden;
-      margin-top: 16px;
+      margin-top: 10px;
       box-shadow: 0 6px 24px rgba(0,0,0,0.35);
       transition: transform .3s ease, box-shadow .3s ease;
     }
@@ -138,46 +109,85 @@
       width: 100%;
       height: 100%;
       border: 0;
-      border-radius: 16px;
+      border-radius: 12px;
     }
 
-    @keyframes fadeInUp{
-      from{opacity:0;transform:translateY(14px)}
-      to{opacity:1;transform:translateY(0)}
+    .map-link {
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      transition: color .3s ease;
+    }
+
+    .map-link:hover {
+      color: #7a95ff;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-
-  <div class="contact-panel">
-    <div class="contact-card">
-      <h2>Contact Us</h2>
-      <p class="muted-small">Reach out to our coordinators, follow us on Instagram, or visit us at our location.</p>
-
-      <!-- Coordinators List -->
-      <ul class="coordinators">
-        <li>Dr. Stephen A, Coordinator: <a href="tel:+919677910604">+91 96779 10604</a></li>
-        <li>Kiran Shankar A P, Coordinator: <a href="tel:+918547728600">+91 85477 28600</a></li>
-        <li>Ruth J, Coordinator: <a href="tel:+919148518663">+91 91485 18663</a></li>
-      </ul>
-
-      <!-- Social Links -->
-      <div class="socials">
-        <a class="btn" href="https://www.instagram.com/smartzone.iot?igsh=MXdwaHA3dWlteHB0Zw==" target="_blank">
-          <img src="assets/instagram-icon.png" alt="Instagram" style="width:20px;height:20px;margin-right:6px;"> Instagram
-        </a>
+  <div class="phone-frame">
+    <header class="topbar">
+      <div class="brand">
+        <img src="assets/kju-logo.png" alt="KJU Logo" class="brand-logo" />
+        <img src="assets/smartzone-logo.png" alt="SmartZone IoT Club" class="smartzone-logo" />
+        <span class="brand-title">Synapse '25</span>
       </div>
 
-      <!-- Map Embed -->
-      <div class="map-embed">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.123456789!2d76.349123!3d10.231234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba1a123456789ab%3A0xc1234567890abcd!2sKristu%20Jayanti%20College!5e0!3m2!1sen!2sin!4v1234567890" 
-          allowfullscreen="" 
-          loading="lazy"
-        ></iframe>
-      </div>
-    </div>
+      <nav class="primary-nav">
+        <a class="nav-btn" href="index.html">Home</a>
+        <a class="nav-btn" href="projects.html">Projects</a>
+        <a class="nav-btn active" href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main class="main contact-main">
+      <header class="page-header">
+        <h1>Contact</h1>
+        <p class="muted-small">For queries about Synapse '25, call any of our coordinators below or follow us on Instagram.</p>
+      </header>
+
+      <section class="contact-panel">
+        <!-- Coordinators -->
+        <div class="contact-card">
+          <h3>Meet Our Coordinators</h3>
+          <ul class="coordinators">
+            <li>Dr. Stephen A — <a href="tel:+919677910604">+91 96779 10604</a></li>
+            <li>Kiran Shankar A P — <a href="tel:+918547728600">+91 85477 28600</a></li>
+            <li>Ruth J — <a href="tel:+919148518663">+91 91485 18663</a></li>
+          </ul>
+
+          <div class="socials">
+            <a class="btn" href="https://www.instagram.com/smartzone.iot?igsh=MXdwaHA3dWlteHB0Zw==" target="_blank">
+              <img src="assets/instagram-icon.png" alt="Instagram" style="width:20px;height:20px;margin-right:6px;"> Instagram
+            </a>
+          </div>
+        </div>
+
+        <!-- Venue & Map -->
+        <div class="contact-card">
+          <h4>Venue</h4>
+          <p class="muted-small">M1 Auditorium, 1st Floor, Main Block — Kristu Jayanti University</p>
+
+          <h4 style="margin-top:12px">Location</h4>
+          <div class="map-embed">
+            <iframe src="https://www.google.com/maps?q=13.0579425,77.6429632&z=17&output=embed"></iframe>
+          </div>
+          <a class="map-link" href="https://maps.google.com/?q=Kristu+Jayanti+University" target="_blank">Open in Google Maps</a>
+        </div>
+
+        <!-- Organizers -->
+        <div class="contact-card small">
+          <h4>Organizers</h4>
+          <p class="muted-small">Department of Computer Science — Kristu Jayanti University</p>
+          <p class="muted-small">SmartZone IoT Club</p>
+        </div>
+      </section>
+    </main>
   </div>
 
+  <script src="script.js"></script>
 </body>
 </html>
