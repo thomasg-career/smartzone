@@ -1,4 +1,4 @@
-(function () { 
+(function () {
   const slidesContainer = document.querySelector('.slides');
   if (slidesContainer) {
     let slides = Array.from(slidesContainer.querySelectorAll('.slide'));
@@ -16,6 +16,7 @@
           dotsContainer.appendChild(d);
         });
       }
+
       let current = 0;
       function updateUI() {
         slides.forEach((s, i) => {
@@ -31,7 +32,23 @@
       document.querySelector('[data-prev]')?.addEventListener('click', prev);
       document.querySelector('[data-next]')?.addEventListener('click', next);
 
-     
+      let startX = 0, startY = 0, isTouch = false;
+      slidesContainer.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length === 0) return;
+        startX = e.touches[0].clientX; startY = e.touches[0].clientY; isTouch = true;
+      }, { passive: true });
+      slidesContainer.addEventListener('touchmove', (e) => {
+        if (!isTouch || !e.touches.length) return;
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
+      }, { passive: false });
+      slidesContainer.addEventListener('touchend', (e) => {
+        if (!isTouch) return; isTouch = false;
+        const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
+        const dx = endX - startX;
+        if (Math.abs(dx) > 40) { if (dx > 0) prev(); else next(); }
+      });
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') prev();
@@ -42,6 +59,7 @@
     }
   }
 
+  // === Modal ===
   const posterThumb = document.getElementById('poster-thumb');
   const posterModal = document.getElementById('poster-modal');
   const modalCloseBtn = document.getElementById('modal-close');
@@ -56,23 +74,22 @@
     if (!posterModal) return;
     posterModal.classList.remove('active');
     posterModal.setAttribute('aria-hidden', 'true');
-    if (!document.body.classList.contains('homepage')) {
-      document.body.style.overflow = 'auto';
-    } else {
-      document.body.style.overflow = 'hidden';
-    }
+    document.body.style.overflow = '';
   }
   posterThumb?.addEventListener('click', openModal);
   modalCloseBtn?.addEventListener('click', closeModal);
   posterModal?.addEventListener('click', (e) => { if (e.target === posterModal) closeModal(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
+  // === Projects filters ===
   (function projectsInit() {
     const search = document.getElementById('project-search');
     const grid = document.getElementById('projects-grid');
     const tagFilters = document.getElementById('tag-filters');
     const cards = grid ? Array.from(grid.querySelectorAll('.project-card')) : [];
+
     function normalize(s) { return (s || '').toLowerCase().trim(); }
+
     function filterProjects() {
       const q = normalize(search?.value);
       const activeTagBtn = (tagFilters && tagFilters.querySelector('.tag-btn.active'));
@@ -86,6 +103,7 @@
         card.style.display = (matchesText && matchesTag) ? 'flex' : 'none';
       });
     }
+
     if (search) search.addEventListener('input', filterProjects);
     if (tagFilters) {
       tagFilters.addEventListener('click', (e) => {
@@ -93,7 +111,7 @@
         if (!btn) return;
         tagFilters.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
         btn.classList.remove('active');
-        void btn.offsetWidth;
+        void btn.offsetWidth; // reflow
         btn.classList.add('active');
         filterProjects();
         const tag = btn.dataset.tag || 'all';
@@ -104,6 +122,7 @@
     filterProjects();
   })();
 
+  // === Animate cards on scroll ===
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -113,5 +132,5 @@
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.contact-card, .project-card').forEach(card => observer.observe(card));
-})();
 
+})();
