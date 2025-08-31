@@ -18,8 +18,10 @@ html, body {
   color: #e6eefc;
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
 }
+
+body.homepage { overflow: hidden; }
+body.projects, body.contact { overflow-y: auto; }
 
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
